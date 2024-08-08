@@ -1,0 +1,477 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Consumption Predictor</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #4682B4;
+            color: #1E90FF;
+        }
+
+        .header {
+            background-color: #4682B4;
+            color: rgb(222, 219, 219);
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .instruction-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .instruction-container p {
+            display: inline-block;
+            color: rgb(223, 220, 220);
+            font-size: 20px;
+        }
+
+        .instruction-container .arrow {
+            font-size: 24px;
+            margin-left: 10px;
+        }
+
+        .instruction-container button {
+            background-color: #1E90FF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        .form-container {
+            background-color: #ddd;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            display: none;
+            max-width: 500px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+        }
+
+        .form-container label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .form-container input,
+        .form-container select {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007BFF; /* Blue background */
+            border: none; /* Remove borders */
+            color: white; /* White text */
+            padding: 15px 32px; /* Some padding */
+            text-align: center; /* Center the text */
+            text-decoration: none; /* Remove underline */
+            display: inline-block; /* Make the button inline-block */
+            font-size: 16px; /* Increase font size */
+            margin: 4px 2px; /* Some margin */
+            cursor: pointer; /* Pointer/hand icon */
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        .form-container button {
+            background-color: #4682B4;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .result-container {
+            background-color: #ddd;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            max-width: 500px;
+            display: none;
+        }
+
+        .result-container h2 {
+            text-align: center;
+        }
+
+        footer {
+            background-color: #4682B4;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            bottom: 0;
+            clear: both;
+        }
+        .chart-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Energy Consumption Predictor</h1>
+        <p>This site helps engineers predict energy consumption based on various parameters.</p>
+    </div>
+    <div class="instruction-container">
+        <p>To predict energy consumption <span class="arrow">→</span></p>
+        <button onclick="toggleForm()">Click Here</button>
+    </div>
+    <div class="form-container" id="formContainer">
+        <h2>PLEASE FILL OUT THE FORM ACCURATELY</h2>
+        <form id="energyForm">
+            <label for="Lighting">Lighting:</label>
+            <input type="number" id="Lighting" name="Lighting" required>
+
+            <label for="Kitchen_temp">Kitchen Temperature:</label>
+            <input type="number" id="Kitchen_temp" name="Kitchen_temp" required>
+
+            <label for="Kitchen_Humidity">Kitchen Humidity:</label>
+            <input type="number" id="Kitchen_Humidity" name="Kitchen_Humidity" required>
+
+            <label for="Livingroom_temp">Livingroom Temperature:</label>
+            <input type="number" id="Livingroom_temp" name="Livingroom_temp" required>
+
+            <label for="Livingroom_Humidity">Livingroom Humidity:</label>
+            <input type="number" id="Livingroom_Humidity" name="Livingroom_Humidity" required>
+
+            <label for="Laundryroom_temp">Laundryroom Temperature:</label>
+            <input type="number" id="Laundryroom_temp" name="Laundryroom_temp" required>
+
+            <label for="Laundryroom_Humidity">Laundryroom Humidity:</label>
+            <input type="number" id="Laundryroom_Humidity" name="Laundryroom_Humidity" required>
+
+            <label for="Officeroom_temp">Officeroom Temperature:</label>
+            <input type="number" id="Officeroom_temp" name="Officeroom_temp" required>
+
+            <label for="Officeroom_Humidity">Officeroom Humidity:</label>
+            <input type="number" id="Officeroom_Humidity" name="Officeroom_Humidity" required>
+
+            <label for="Bathroom_temp">Bathroom Temperature:</label>
+            <input type="number" id="Bathroom_temp" name="Bathroom_temp" required>
+
+            <label for="Bathroom_Humidity">Bathroom Humidity:</label>
+            <input type="number" id="Bathroom_Humidity" name="Bathroom_Humidity" required>
+
+            <label for="Corridor_temp">Corridor Temperature:</label>
+            <input type="number" id="Corridor_temp" name="Corridor_temp" required>
+
+            <label for="Corridor_Humidity">Corridor Humidity:</label>
+            <input type="number" id="Corridor_Humidity" name="Corridor_Humidity" required>
+
+            <label for="Ironingroom_temp">Ironingroom Temperature:</label>
+            <input type="number" id="Ironingroom_temp" name="Ironingroom_temp" required>
+
+            <label for="Ironingroom_Humidity">Ironingroom Humidity:</label>
+            <input type="number" id="Ironingroom_Humidity" name="Ironingroom_Humidity" required>
+
+            <label for="Childrenroom_temp">Childrenroom Temperature:</label>
+            <input type="number" id="Childrenroom_temp" name="Childrenroom_temp" required>
+
+            <label for="Childrenroom_Humidity">Childrenroom Humidity:</label>
+            <input type="number" id="Childrenroom_Humidity" name="Childrenroom_Humidity" required>
+
+            <label for="Parentroom_temp">Parentroom Temperature:</label>
+            <input type="number" id="Parentroom_temp" name="Parentroom_temp" required>
+
+            <label for="Parentroom_Humidity">Parentroom Humidity:</label>
+            <input type="number" id="Parentroom_Humidity" name="Parentroom_Humidity" required>
+
+            <label for="Weatherstation_temp">Weatherstation Temperature:</label>
+            <input type="number" id="Weatherstation_temp" name="Weatherstation_temp" required>
+
+            <label for="Weatherstation_mmhg">Weatherstation mmhg:</label>
+            <input type="number" id="Weatherstation_mmhg" name="Weatherstation_mmhg" required>
+
+            <label for="Weatherstation_Humidity">Weatherstation Humidity:</label>
+            <input type="number" id="Weatherstation_Humidity" name="Weatherstation_Humidity" required>
+
+            <label for="Weatherstation_windspeed">Weatherstation Windspeed:</label>
+            <input type="number" id="Weatherstation_windspeed" name="Weatherstation_windspeed" required>
+
+            <label for="Weatherstation_dewpoint">Weatherstation Dewpoint:</label>
+            <input type="number" id="Weatherstation_dewpoint" name="Weatherstation_dewpoint" required>
+
+            <label for="Time_24hrs">Time (24-hour format):</label>
+            <input type="number" id="Time_24hrs" name="Time_24hrs" min="0" max="23" required>
+
+            <label for="Day_ofthe_week">Day of the week (0-6, 0 is Monday):</label>
+            <input type="number" id="Day_ofthe_week" name="Day_ofthe_week" min="0" max="6" required>
+            <label for="start_time">Start Time (0-23):</label>
+            <input type="number" id="start_time" name="start_time" min="0" max="23" required>
+            
+            <label for="end_time">End Time (0-23):</label>
+            <input type="number" id="end_time" name="end_time" min="0" max="23" required>
+           
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2>Prediction Result</h2>
+        <div id="predictionResult"></div>
+        <h2>Energy Consumption Trend</h2>
+        <div class="chart-container">
+            <canvas id="energyChart"></canvas>
+        </div>
+        <div id="parameterInfo"></div>
+        <button onclick="toggleForm()">Make Another Prediction</button>
+    </div>
+
+    <footer>
+        &copy; 2024 Energy Consumption Predictor. All rights reserved.
+    </footer>
+
+    <script>
+                let chart;
+
+function toggleForm() {
+    const formContainer = document.getElementById('formContainer');
+    const resultContainer = document.getElementById('resultContainer');
+    
+    if (formContainer.style.display === 'none' || formContainer.style.display === '') {
+        formContainer.style.display = 'block';
+        resultContainer.style.display = 'none';
+    } else {
+        formContainer.style.display = 'none';
+        resultContainer.style.display = 'none';
+    }
+}
+
+function createChart(prediction) {
+    const ctx = document.getElementById('energyChart').getContext('2d');
+    
+    if (chart) {
+        chart.destroy();
+    }
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Predicted Energy Consumption'],
+            datasets: [{
+                label: 'Energy Consumption (Wh)',
+                data: [prediction],
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Energy Consumption (Wh)'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Predicted Energy Consumption'
+                }
+            }
+        }
+    });
+}
+
+async function handleFormSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch('/predict', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log("Server response:", result);
+
+            const predictionResultElement = document.getElementById('predictionResult');
+            const parameterInfoElement = document.getElementById('parameterInfo');
+
+            predictionResultElement.innerHTML = `<h2>${result.text}</h2>`;
+
+            createChart(result.prediction);
+
+            parameterInfoElement.innerHTML = '<h3>Parameter Information</h3>';
+            for (const [key, value] of Object.entries(result)) {
+                if (key !== 'prediction' && key !== 'text') {
+                    parameterInfoElement.innerHTML += `<p>${key}: ${value}</p>`;
+                }
+            }
+
+            // Hide form and show results
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'block';
+        } else {
+            console.error('Error:', response.statusText);
+            alert('Error: ' + response.statusText);
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+        alert('Fetch error: ' + error.message);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('energyForm');
+    form.addEventListener('submit', handleFormSubmit);
+});
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Consumption Predictor</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+</head>
+<body>
+    <div class="header">
+        <h1>Energy Consumption Predictor</h1>
+        <p>This site helps engineers predict energy consumption based on various parameters.</p>
+    </div>
+    <div class="instruction-container">
+        <p>To predict energy consumption <span class="arrow">→</span></p>
+        <button onclick="toggleForm()">Click Here</button>
+    </div>
+    <div class="form-container" id="formContainer">
+        <h2>PLEASE FILL OUT THE FORM ACCURATELY</h2>
+        <form id="energyForm">
+            <label for="Lighting">Lighting:</label>
+            <input type="number" id="Lighting" name="Lighting" required>
+
+            <label for="Kitchen_temp">Kitchen Temperature:</label>
+            <input type="number" id="Kitchen_temp" name="Kitchen_temp" required>
+
+            <label for="Kitchen_Humidity">Kitchen Humidity:</label>
+            <input type="number" id="Kitchen_Humidity" name="Kitchen_Humidity" required>
+
+            <label for="Livingroom_temp">Livingroom Temperature:</label>
+            <input type="number" id="Livingroom_temp" name="Livingroom_temp" required>
+
+            <label for="Livingroom_Humidity">Livingroom Humidity:</label>
+            <input type="number" id="Livingroom_Humidity" name="Livingroom_Humidity" required>
+
+            <label for="Laundryroom_temp">Laundryroom Temperature:</label>
+            <input type="number" id="Laundryroom_temp" name="Laundryroom_temp" required>
+
+            <label for="Laundryroom_Humidity">Laundryroom Humidity:</label>
+            <input type="number" id="Laundryroom_Humidity" name="Laundryroom_Humidity" required>
+
+            <label for="Officeroom_temp">Officeroom Temperature:</label>
+            <input type="number" id="Officeroom_temp" name="Officeroom_temp" required>
+
+            <label for="Officeroom_Humidity">Officeroom Humidity:</label>
+            <input type="number" id="Officeroom_Humidity" name="Officeroom_Humidity" required>
+
+            <label for="Bathroom_temp">Bathroom Temperature:</label>
+            <input type="number" id="Bathroom_temp" name="Bathroom_temp" required>
+
+            <label for="Bathroom_Humidity">Bathroom Humidity:</label>
+            <input type="number" id="Bathroom_Humidity" name="Bathroom_Humidity" required>
+
+            <label for="Corridor_temp">Corridor Temperature:</label>
+            <input type="number" id="Corridor_temp" name="Corridor_temp" required>
+
+            <label for="Corridor_Humidity">Corridor Humidity:</label>
+            <input type="number" id="Corridor_Humidity" name="Corridor_Humidity" required>
+
+            <label for="Ironingroom_temp">Ironingroom Temperature:</label>
+            <input type="number" id="Ironingroom_temp" name="Ironingroom_temp" required>
+
+            <label for="Ironingroom_Humidity">Ironingroom Humidity:</label>
+            <input type="number" id="Ironingroom_Humidity" name="Ironingroom_Humidity" required>
+
+            <label for="Childrenroom_temp">Childrenroom Temperature:</label>
+            <input type="number" id="Childrenroom_temp" name="Childrenroom_temp" required>
+
+            <label for="Childrenroom_Humidity">Childrenroom Humidity:</label>
+            <input type="number" id="Childrenroom_Humidity" name="Childrenroom_Humidity" required>
+
+            <label for="Parentroom_temp">Parentroom Temperature:</label>
+            <input type="number" id="Parentroom_temp" name="Parentroom_temp" required>
+
+            <label for="Parentroom_Humidity">Parentroom Humidity:</label>
+            <input type="number" id="Parentroom_Humidity" name="Parentroom_Humidity" required>
+
+            <label for="Weatherstation_temp">Weatherstation Temperature:</label>
+            <input type="number" id="Weatherstation_temp" name="Weatherstation_temp" required>
+
+            <label for="Weatherstation_mmhg">Weatherstation mmhg:</label>
+            <input type="number" id="Weatherstation_mmhg" name="Weatherstation_mmhg" required>
+
+            <label for="Weatherstation_Humidity">Weatherstation Humidity:</label>
+            <input type="number" id="Weatherstation_Humidity" name="Weatherstation_Humidity" required>
+
+            <label for="Weatherstation_windspeed">Weatherstation Windspeed:</label>
+            <input type="number" id="Weatherstation_windspeed" name="Weatherstation_windspeed" required>
+
+            <label for="Weatherstation_dewpoint">Weatherstation Dewpoint:</label>
+            <input type="number" id="Weatherstation_dewpoint" name="Weatherstation_dewpoint" required>
+
+            <label for="Time_24hrs">Time (24-hour format):</label>
+            <input type="number" id="Time_24hrs" name="Time_24hrs" min="0" max="23" required>
+
+            <label for="Day_ofthe_week">Day of the week (0-6, 0 is Monday):</label>
+            <input type="number" id="Day_ofthe_week" name="Day_ofthe_week" min="0" max="6" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2>Prediction Result</h2>
+        <div id="predictionResult"></div>
+        <h2>Energy Consumption Trend</h2>
+        <div class="chart-container">
+            <canvas id="energyChart"></canvas>
+        </div>
+        <button onclick="fetchAndUpdateChart()">Refresh Chart</button>
+        <div id="parameterInfo"></div>
+        <button onclick="toggleForm()">Make Another Prediction</button>
+    </div>
+
+    <footer>
+        &copy; 2024 Energy Consumption Predictor. All rights reserved.
+    </footer>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

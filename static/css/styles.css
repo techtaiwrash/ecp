@@ -1,0 +1,128 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #4682B4;
+    color: #1E90FF;
+}
+
+.header {
+    background-color: #4682B4;
+    color: rgb(222, 219, 219);
+    text-align: center;
+    padding: 20px 0;
+}
+
+.instruction-container {
+    text-align: center;
+    margin: 20px;
+}
+
+.instruction-container p {
+    display: inline-block;
+    color: rgb(223, 220, 220);
+    font-size: 20px;
+}
+
+.instruction-container .arrow {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.instruction-container button {
+    background-color: #1E90FF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.form-container {
+    background-color: #ddd;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    display: none;
+    max-width: 500px;
+}
+
+.form-container h2 {
+    text-align: center;
+}
+
+.form-container label {
+    display: block;
+    margin-top: 10px;
+}
+
+.form-container input,
+.form-container select {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #007BFF;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.form-container button {
+    background-color: #4682B4;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+.result-container {
+    background-color: #ddd;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    max-width: 500px;
+    display: none;
+}
+
+.result-container h2 {
+    text-align: center;
+}
+
+footer {
+    background-color: #4682B4;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    bottom: 0;
+    clear: both;
+}
+
+.chart-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
